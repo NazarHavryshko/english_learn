@@ -11,5 +11,4 @@ class Chapter(InfoMixin):
     text = models.TextField('Text')
 
     def __str__(self):
-        return self.name
-
+        return f"{self.name} ({self.pk})"

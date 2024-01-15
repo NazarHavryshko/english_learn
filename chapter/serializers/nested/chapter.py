@@ -16,8 +16,8 @@ class ChapterListSerializer(serializers.ModelSerializer):
             'inside'
         )
 
-    def get_inside(self, obj):
+    def get_inside(self, obj) -> None:
         return None
 
-    def get_type_v(self, obj):
+    def get_type_v(self, obj) -> str:
         return 'chapter'

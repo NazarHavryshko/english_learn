@@ -1,6 +1,9 @@
-from rest_framework import serializers
+import typing
 
-from chapter.serializers.chapter import ChapterListSerializer
+from rest_framework import serializers
+from rest_framework.exceptions import ParseError
+
+from chapter.serializers.nested.chapter import ChapterListSerializer
 from folder.models.folder import Folder
 
 
@@ -17,7 +20,7 @@ class FolderListSerializer(serializers.ModelSerializer):
             'inside'
         )
 
-    def get_inside(self, obj):
+    def get_inside(self, obj) -> typing.Optional[typing.List]:
 
         children = obj.children.all()
         if children:
@@ -29,7 +32,7 @@ class FolderListSerializer(serializers.ModelSerializer):
 
         return None
 
-    def get_type_v(self, obj):
+    def get_type_v(self, obj) -> str:
         return 'folder'
 
 
@@ -48,4 +51,28 @@ class FolderCreateSerializer(serializers.ModelSerializer):
         fields = (
             'name',
             'parent',
+        )
+
+    def validate(self, attrs):
+        max_depth = 3
+        depth = 0
+
+        current_folder = attrs['parent']
+
+        while current_folder.parent:
+            depth += 1
+            if depth > max_depth:
+                raise ParseError(
+                    "The maximum nesting depth of folders has been reached.")
+
+            current_folder = current_folder.parent
+
+        return attrs
+
+
+class FolderDeleteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Folder
+        fields = (
+            'id'
         )

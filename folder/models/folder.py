@@ -9,4 +9,4 @@ class Folder(InfoMixin):
     parent = models.ForeignKey('self', models.CASCADE, 'children', blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.pk})"

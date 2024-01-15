@@ -23,8 +23,9 @@ class CRUDViewSet(CRUViewSet,
     pass
 
 
-class ListCreateUpdateViewSet(ExtendedGenericViewSet,
-                              mixins.CreateModelMixin,
-                              mixins.UpdateModelMixin,
-                              mixins.ListModelMixin, ):
+class ListCreateDestroyUpdateViewSet(ExtendedGenericViewSet,
+                                     mixins.CreateModelMixin,
+                                     mixins.UpdateModelMixin,
+                                     mixins.ListModelMixin,
+                                     mixins.DestroyModelMixin):
     pass
