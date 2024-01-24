@@ -5,7 +5,8 @@ from common.views.mixin import ListCreateDestroyUpdateViewSet
 from drf_spectacular.utils import extend_schema_view, extend_schema
 
 from folder.models.folder import Folder
-from folder.serializers.api import folder
+from folder.serializers.api import folder as folders
+from datetime import datetime
 
 
 @extend_schema_view(
@@ -15,18 +16,20 @@ from folder.serializers.api import folder
     destroy=extend_schema(summary='Delete folder', tags=['Folder']),
 )
 class FolderView(ListCreateDestroyUpdateViewSet):
-    queryset = Folder.objects.filter(parent=None, created_at=get_current_user())
     permission_classes = [IsAuthenticated]
 
     http_method_names = ('get', 'post', 'patch', 'delete')
 
     def get_serializer_class(self):
         serializer_classes = {
-            'create': folder.FolderCreateSerializer,
-            'partial_update': folder.FolderUpdateSerializer,
-            'list': folder.FolderListSerializer,
-            'destroy': folder.FolderDeleteSerializer,
+            'create': folders.FolderCreateSerializer,
+            'partial_update': folders.FolderUpdateSerializer,
+            'list': folders.FolderListSerializer,
+            'destroy': folders.FolderDeleteSerializer,
         }
         return serializer_classes[self.action]
+
+    def get_queryset(self):
+        return Folder.objects.filter(parent=None, created_by=self.request.user)
 
 

@@ -14,7 +14,7 @@ class CRUViewSet(ExtendedGenericViewSet,
                  mixins.CreateModelMixin,
                  mixins.RetrieveModelMixin,
                  mixins.UpdateModelMixin,
-                 mixins.ListModelMixin, ):
+                 ):
     pass
 
 

@@ -14,8 +14,8 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
     destroy=extend_schema(summary='Delete chapter', tags=['Chapter']),
 )
 class ChapterView(CRUDViewSet):
-    queryset = Chapter.objects.filter(created_at=get_current_user())
     permission_classes = [IsAuthenticated]
+    serializer_classes = chapter.ChapterRetrieveSerializer
 
     http_method_names = ('get', 'post', 'patch', 'delete')
 
@@ -27,3 +27,6 @@ class ChapterView(CRUDViewSet):
             'destroy': chapter.ChapterDeleteSerializer,
         }
         return serializer_classes[self.action]
+
+    def get_queryset(self):
+        return Chapter.objects.filter(created_by=self.request.user)

@@ -13,6 +13,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default='').split()
 
+
 # base
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -38,6 +39,7 @@ INSTALLED_APPS += [
     'chapter',
     'common',
     'folder',
+    'frontend',
 ]
 
 # after apps
@@ -67,14 +69,14 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
-                "django.template.context_processors.request",
+                'django.template.context_processors.request',
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
-
+# "django.template.context_processors.word_analysis",
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database

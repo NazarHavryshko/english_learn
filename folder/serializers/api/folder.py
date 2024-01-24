@@ -57,6 +57,12 @@ class FolderCreateSerializer(serializers.ModelSerializer):
         max_depth = 3
         depth = 0
 
+        if hasattr(attrs, 'parent') and attrs['parent'] is None:
+            return attrs
+        elif hasattr(attrs, 'parent'):
+            attrs['parent'] = None
+            return attrs
+
         current_folder = attrs['parent']
 
         while current_folder.parent:
@@ -68,6 +74,8 @@ class FolderCreateSerializer(serializers.ModelSerializer):
             current_folder = current_folder.parent
 
         return attrs
+
+
 
 
 class FolderDeleteSerializer(serializers.ModelSerializer):

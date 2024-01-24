@@ -6,7 +6,8 @@ User = get_user_model()
 
 
 class DateMixin(models.Model):
-    created_at = models.DateTimeField('Create at', null=True, blank=True)
+    created_at = models.DateTimeField('Create at', null=True, blank=True,
+                                      auto_now_add=True)
     updated_at = models.DateTimeField('Update at', null=True, blank=True)
 
     class Meta:
@@ -15,7 +16,8 @@ class DateMixin(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk and not self.created_at:
             self.created_at = timezone.now()
-        self.updated_at = timezone.now()
+        if isinstance(self.updated_at, str):
+            self.updated_at = timezone.now()
         super(DateMixin, self).save(*args, **kwargs)
 
 
@@ -34,7 +36,7 @@ class InfoMixin(DateMixin):
         from crum import get_current_user
 
         user = get_current_user()
-        if user and not user.pk:
+        if user and hasattr(user, 'pk') and user.pk is None:
             user = None
         if not self.pk:
             self.created_by = user
