@@ -56,10 +56,8 @@ class FolderCreateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         max_depth = 3
         depth = 0
-
-        if hasattr(attrs, 'parent') and attrs['parent'] is None:
-            return attrs
-        elif hasattr(attrs, 'parent'):
+        x = 'parent' not in attrs
+        if 'parent' not in attrs:
             attrs['parent'] = None
             return attrs
 

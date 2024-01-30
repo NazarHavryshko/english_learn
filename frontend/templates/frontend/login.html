@@ -1,0 +1,18 @@
+{% extends "frontend/base.html" %} {% load static %} {% block header %}
+<title>Registration</title>
+<link rel="stylesheet" href="{% static 'frontend/css/auth.css' %}" />
+{% endblock header %} {% block content %}
+<h2>Authorization</h2>
+<form id="loginForm">
+	{% csrf_token %}
+	<label for="loginEmail">Username:</label>
+	<input type="Username" id="loginUsername" name="username" required />
+
+	<label for="loginPassword">Password:</label>
+	<input type="password" id="loginPassword" name="password" required />
+
+	<button type="button" class="login_btn">Login</button>
+</form>
+{% endblock content %} {% block js %}
+<script type="module" src="{% static 'frontend/js/auth.js' %}"></script>
+{% endblock js %}

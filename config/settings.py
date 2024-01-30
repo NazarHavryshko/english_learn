@@ -13,7 +13,6 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default='').split()
 
-
 # base
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -29,8 +28,8 @@ INSTALLED_APPS += [
     'rest_framework',
     'django_filters',
     'corsheaders',
-    'djoser',
     'django_extensions',
+    'rest_framework.authtoken',
 ]
 
 # apps
@@ -125,15 +124,15 @@ USE_TZ = True
 ##########################
 # STATIC AND MEDIA
 ##########################
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = "static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 ##########################
 # CORS HEADER
 ##########################
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CSRF_COOKIE_SECURE = False
@@ -142,9 +141,10 @@ CSRF_COOKIE_SECURE = False
 # DJANGO REST FRAMEWORK
 ##########################
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',),   # IsAuthenticated
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny', ],  # IsAuthenticated
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],

@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="{% static 'frontend/css/base.css' %}" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Anton&family=Inter&family=Manrope:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		{% block header %} {% endblock header %}
+	</head>
+	<body>
+		<header class="header">
+			<div class="nav">
+				<div class="log">
+					<a href="/">READ NOVEL</a>
+				</div>
+				<div class="auth">
+					<a href="/login/" class="login">Login</a>
+					<a href="/registration/" class="registration">Registration</a>
+				</div>
+			</div>
+		</header>
+		<div class="container">{% block content %} {% endblock content %}</div>
+		{% block js %} {% endblock js %}
+	</body>
+</html>

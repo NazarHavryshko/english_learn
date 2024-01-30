@@ -1,4 +1,3 @@
-from crum import get_current_user
 from rest_framework.permissions import IsAuthenticated
 
 from common.views.mixin import ListCreateDestroyUpdateViewSet
@@ -6,7 +5,7 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 
 from folder.models.folder import Folder
 from folder.serializers.api import folder as folders
-from datetime import datetime
+
 
 
 @extend_schema_view(
@@ -30,6 +29,9 @@ class FolderView(ListCreateDestroyUpdateViewSet):
         return serializer_classes[self.action]
 
     def get_queryset(self):
-        return Folder.objects.filter(parent=None, created_by=self.request.user)
+        if self.action == 'list':
+            return Folder.objects.filter(parent=None, created_by=self.request.user)
+        else:
+            return Folder.objects.filter(created_by=self.request.user)
 
 
