@@ -1,0 +1,73 @@
+@import url('./normalize.css');
+
+body {
+	font-family: 'Times New Roman', Times, serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+.header {
+	position: relative;
+	z-index: 5;
+	width: 100%;
+	background-color: #14425d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+}
+
+.nav {
+	width: 1140px;
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	justify-content: space-between;
+}
+
+.log a {
+	color: #fff;
+	font-size: 36px;
+	font-weight: bold;
+	font-family: 'Manrope', sans-serif;
+	font-family: 'Inter', sans-serif;
+}
+
+.auth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.auth a {
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: 'Inter', sans-serif;
+	/* font-family: 'Manrope', sans-serif; */
+}
+
+.logout {
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: 'Inter', sans-serif;
+	border: 0;
+	background-color: transparent;
+	/* font-family: 'Manrope', sans-serif; */
+}
+
+.container {
+	width: 1140px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+button {
+	cursor: pointer;
+}
