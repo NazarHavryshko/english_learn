@@ -20,6 +20,7 @@ class RegistrationView(generics.CreateAPIView):
     serializer_class = user_s.RegistrationSerializer
 
 
+
 @extend_schema_view(
     post=extend_schema(summary='Login', tags=['User']),
 )

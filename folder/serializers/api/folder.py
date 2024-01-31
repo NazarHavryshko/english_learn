@@ -23,14 +23,16 @@ class FolderListSerializer(serializers.ModelSerializer):
     def get_inside(self, obj) -> typing.Optional[typing.List]:
 
         children = obj.children.all()
-        if children:
-            return FolderListSerializer(children, many=True).data
-
         chapters = obj.chapters.all()
-        if chapters:
-            return [ChapterListSerializer(chapter).data for chapter in chapters]
+        response = []
 
-        return None
+        if children:
+            response += FolderListSerializer(children, many=True).data
+
+        if chapters:
+            response += ChapterListSerializer(chapters, many=True).data
+
+        return response
 
     def get_type_v(self, obj) -> str:
         return 'folder'
@@ -72,8 +74,6 @@ class FolderCreateSerializer(serializers.ModelSerializer):
             current_folder = current_folder.parent
 
         return attrs
-
-
 
 
 class FolderDeleteSerializer(serializers.ModelSerializer):

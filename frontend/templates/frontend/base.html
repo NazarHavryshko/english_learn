@@ -20,6 +20,7 @@
 					<a href="/">READ NOVEL</a>
 				</div>
 				<div class="auth">
+					<button class="logout" onclick="logoutBtn()">Logout</button>
 					<a href="/login/" class="login">Login</a>
 					<a href="/registration/" class="registration">Registration</a>
 				</div>
@@ -27,5 +28,31 @@
 		</header>
 		<div class="container">{% block content %} {% endblock content %}</div>
 		{% block js %} {% endblock js %}
+		<script>
+			function isUserLoggedIn() {
+				return localStorage.getItem('token') !== null
+			}
+
+			const logoutBtn = () => {
+				localStorage.removeItem('token')
+				window.location.reload()
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				const loginLink = document.querySelector('.login')
+				const registrationLink = document.querySelector('.registration')
+				const logoutButton = document.querySelector('.logout')
+
+				if (isUserLoggedIn()) {
+					logoutButton.style.display = 'inline-block'
+					loginLink.style.display = 'none'
+					registrationLink.style.display = 'none'
+				} else {
+					logoutButton.style.display = 'none'
+					loginLink.style.display = 'inline-block'
+					registrationLink.style.display = 'inline-block'
+				}
+			})
+		</script>
 	</body>
 </html>
