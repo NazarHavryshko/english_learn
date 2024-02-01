@@ -293,3 +293,22 @@ label {
 	border: 0;
 	background-color: transparent;
 }
+
+@media (max-width: 1024px) {
+	.main_div {
+		margin: auto;
+		margin-top: 40px;
+		display: grid;
+		grid-template-columns: 250px 430px 70px;
+	}
+	.close_folder {
+		grid-template-columns: 80px 600px 70px;
+	}
+	.fix_div_folders {
+		position: fixed;
+		width: 250px;
+	}
+	.main_text {
+		z-index: 10;
+	}
+}

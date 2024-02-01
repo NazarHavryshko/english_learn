@@ -89,7 +89,7 @@ function generateChapterTextHTML(chapter) {
 }
 
 function getFolders() {
-	const url = 'http://127.0.0.1:8000/api/folder/'
+	const url = '/api/folder/'
 
 	const token = `Token ${localStorage.getItem('token')}`
 
@@ -109,7 +109,7 @@ function getFolders() {
 }
 
 function getUsername() {
-	const url = 'http://127.0.0.1:8000/api/user/username/'
+	const url = '/api/user/username/'
 	if (localStorage.getItem('token')) {
 		const token = `Token ${localStorage.getItem('token')}`
 
@@ -131,9 +131,9 @@ function getUsername() {
 }
 
 function createFolder(date) {
-	const url = 'http://127.0.0.1:8000/api/folder/'
+	const url = '/api/folder/'
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
-
+	const token = `Token ${localStorage.getItem('token')}`
 	const raw = JSON.stringify(date)
 
 	const xhr = new XMLHttpRequest()
@@ -141,6 +141,7 @@ function createFolder(date) {
 	xhr.open('POST', url)
 	xhr.setRequestHeader('Content-Type', 'application/json')
 	xhr.setRequestHeader('X-CSRFToken', csrfToken)
+	xhr.setRequestHeader('Authorization', token)
 
 	xhr.onload = function () {
 		closePopup()
@@ -153,12 +154,12 @@ function createFolder(date) {
 function updateElement(type_el, id, date) {
 	let url
 	if (type_el === 'folder') {
-		url = `http://127.0.0.1:8000/api/folder/${id}/`
+		url = `/api/folder/${id}/`
 	} else if (type_el === 'chapter') {
-		url = `http://127.0.0.1:8000/api/chapter/${id}/`
+		url = `/api/chapter/${id}/`
 	}
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
-
+	const token = `Token ${localStorage.getItem('token')}`
 	const raw = JSON.stringify(date)
 
 	const xhr = new XMLHttpRequest()
@@ -166,6 +167,7 @@ function updateElement(type_el, id, date) {
 	xhr.open('PATCH', url)
 	xhr.setRequestHeader('Content-Type', 'application/json')
 	xhr.setRequestHeader('X-CSRFToken', csrfToken)
+	xhr.setRequestHeader('Authorization', token)
 
 	xhr.onload = function () {
 		closePopup()
@@ -178,11 +180,11 @@ function updateElement(type_el, id, date) {
 function deleteElement(type_el, id) {
 	let url
 	if (type_el === 'folder') {
-		url = `http://127.0.0.1:8000/api/folder/${id}/`
+		url = `/api/folder/${id}/`
 	} else if (type_el === 'chapter') {
-		url = `http://127.0.0.1:8000/api/chapter/${id}/`
+		url = `/api/chapter/${id}/`
 	}
-
+	const token = `Token ${localStorage.getItem('token')}`
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
 	const xhr = new XMLHttpRequest()
@@ -190,6 +192,7 @@ function deleteElement(type_el, id) {
 	xhr.open('DELETE', url)
 	xhr.setRequestHeader('Content-Type', 'application/json')
 	xhr.setRequestHeader('X-CSRFToken', csrfToken)
+	xhr.setRequestHeader('Authorization', token)
 
 	xhr.onload = function () {
 		getFolders()
@@ -201,7 +204,7 @@ function deleteElement(type_el, id) {
 function createChpater(date) {
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
-	const url = 'http://127.0.0.1:8000/api/chapter/'
+	const url = '/api/chapter/'
 
 	const raw = JSON.stringify(date)
 
@@ -223,7 +226,7 @@ function createChpater(date) {
 }
 
 function getChapter(id) {
-	const url = `http://127.0.0.1:8000/api/chapter/${id}`
+	const url = `/api/chapter/${id}`
 
 	const token = `Token ${localStorage.getItem('token')}`
 

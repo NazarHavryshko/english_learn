@@ -71,3 +71,13 @@ a {
 button {
 	cursor: pointer;
 }
+
+@media (max-width: 1024px) {
+	.nav {
+		width: 750px;
+	}
+
+	.container {
+		width: 750px;
+	}
+}

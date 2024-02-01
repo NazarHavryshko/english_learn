@@ -1,5 +1,5 @@
 function login(date) {
-	const url = 'http://127.0.0.1:8000/api/user/login/'
+	const url = '/api/user/login/'
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
 	const raw = JSON.stringify(date)
@@ -19,7 +19,7 @@ function login(date) {
 }
 
 function registration(date) {
-	const url = 'http://127.0.0.1:8000/api/user/registration/'
+	const url = '/api/user/registration/'
 	const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
 	const raw = JSON.stringify(date)
