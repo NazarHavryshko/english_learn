@@ -134,8 +134,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 ##########################
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_HEADERS = ['*']
-CSRF_COOKIE_SECURE = False
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+CSRF_COOKIE_SECURE = True
 # 'rest_framework_simplejwt.authentication.JWTAuthentication',
 ##########################
 # DJANGO REST FRAMEWORK

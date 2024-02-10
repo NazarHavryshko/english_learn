@@ -4,17 +4,28 @@ import {
 	deleteElement,
 	createChpater,
 	getChapter,
+	getFolders,
 } from './request.js'
 // Folder open and close (start)
-function openFolderEL(event) {
+async function openFolderEL(event) {
 	const folderValue = event.target.getAttribute('data-value')
+	
 	const x = `.inside-${folderValue}`
 	const inside = document.querySelector(x)
-	if (inside.classList.contains('close')) {
-		inside.classList.remove('close')
-	} else {
-		inside.classList.add('close')
+	try{
+		if (inside.classList.contains('close')) {
+		
+			inside.classList.remove('close')
+		} else {
+			inside.classList.add('close')
+		}
+	} catch{
+		const r = await getFolders(folderValue)
 	}
+	
+
+	
+	
 }
 
 function openFolder() {
@@ -51,7 +62,6 @@ function addFolderSend() {
 				parent: parseInt(value),
 			}
 		}
-		console.log(date)
 		createFolder(date)
 	}
 }
@@ -59,11 +69,13 @@ function addFolderSend() {
 const updateFolderSend = type_el => {
 	const name = document.querySelector('#popupInput').value
 	const value = document.querySelector('.accept_btn').getAttribute('data-value')
+	console.log(value);
+	const parent = document.querySelector('#popupInput').getAttribute('data-parent')
 	if (name && value) {
 		const date = {
 			name: name,
 		}
-		updateElement(type_el, parseInt(value), date)
+		updateElement(type_el, parseInt(value), date, parent)
 	}
 }
 
@@ -75,7 +87,7 @@ const onAcceptBtnClick = event => {
 	if (typeRequest === 'add') {
 		addFolderSend()
 	} else if (typeRequest === 'updateFolder') {
-		updateFolderSend('fodler')
+		updateFolderSend('folder')
 	} else if (typeRequest === 'updateChapter') {
 		updateFolderSend('chapter')
 	}
@@ -105,11 +117,13 @@ function addNewFolder() {
 
 function updateFolderEL(event) {
 	const value = event.currentTarget.getAttribute('data-value')
+	const parent = event.currentTarget.getAttribute('data-parent')
 	const acceptBtn = document.querySelector('.accept_btn')
 	const popupInput = document.querySelector('#popupInput')
 	const folderName = document.querySelector(`.folder-${parseInt(value)}`)
 	popupInput.setAttribute('data-value', 'updateFolder')
 	popupInput.setAttribute('value', folderName.textContent)
+	popupInput.setAttribute('data-parent', parent)
 	acceptBtn.setAttribute('data-value', value)
 	openPopup()
 
@@ -131,8 +145,9 @@ function updateFolder() {
 // Folder delete (start)
 function deleteFolderEL(event) {
 	const value = event.currentTarget.getAttribute('data-value')
+	const parent = event.currentTarget.getAttribute('data-parent')
 
-	deleteElement('folder', value)
+	deleteElement('folder', value, parent)
 }
 
 function deleteFolder() {
@@ -147,8 +162,9 @@ function deleteFolder() {
 // Chapter delete (start)
 function deleteChapterEL(event) {
 	const value = event.currentTarget.getAttribute('data-value')
+	const parent = event.currentTarget.getAttribute('data-parent')
 
-	deleteElement('chapter', value)
+	deleteElement('chapter', value, parent)
 }
 
 function deleteChapter() {
@@ -162,14 +178,15 @@ function deleteChapter() {
 // Chapter delete (end)
 // Chapter update (start)
 function updateCpaterEL(event) {
-	console.log(123)
 	const value = event.currentTarget.getAttribute('data-value')
 	const acceptBtn = document.querySelector('.accept_btn')
+	const parent = event.currentTarget.getAttribute('data-parent')
 	const popupInput = document.querySelector('#popupInput')
 	const folderName = document.querySelector(`.chapter-${parseInt(value)}`)
 	popupInput.setAttribute('data-value', 'updateChapter')
 	popupInput.setAttribute('value', folderName.textContent)
 	acceptBtn.setAttribute('data-value', value)
+	popupInput.setAttribute('data-parent', parent)
 	openPopup()
 
 	acceptBtn.removeEventListener('click', onAcceptBtnClick)

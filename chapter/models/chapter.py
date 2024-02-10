@@ -12,3 +12,6 @@ class Chapter(InfoMixin):
 
     def __str__(self):
         return f"{self.name} ({self.pk})"
+
+    class Meta:
+        ordering = ['name', 'pk']

@@ -5,18 +5,17 @@ from rest_framework.exceptions import ParseError
 
 from chapter.serializers.nested.chapter import ChapterListSerializer
 from folder.models.folder import Folder
+from folder.serializers.nested.folder import FolderListSerializer
 
 
-class FolderListSerializer(serializers.ModelSerializer):
+class FolderRetrieveSerializer(serializers.ModelSerializer):
     inside = serializers.SerializerMethodField()
-    type_v = serializers.SerializerMethodField()
 
     class Meta:
         model = Folder
         fields = (
             'id',
             'name',
-            'type_v',
             'inside'
         )
 
@@ -34,8 +33,7 @@ class FolderListSerializer(serializers.ModelSerializer):
 
         return response
 
-    def get_type_v(self, obj) -> str:
-        return 'folder'
+
 
 
 class FolderUpdateSerializer(serializers.ModelSerializer):
